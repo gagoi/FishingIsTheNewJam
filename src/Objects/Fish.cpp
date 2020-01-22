@@ -1,7 +1,7 @@
 #include "Fish.hpp"
 
 Fish::Fish(sf::Vector2f pos, double sizeScaler, sf::Vector2f speed, int name):
-   _value(name > 16 ? (name - 16) * -50 : name * 5 + 30), _catch(false), _use_normal_text(true), _speed(speed)
+   _value(name > 16 ? (name - 16) * -50 : name * 5 + 30), _catch(false), _use_normal_text(true), _speed(speed), _uncatchable(false)
 {
     if (speed.x < 0)
     {
@@ -27,12 +27,13 @@ void Fish::draw(sf::RenderTarget & target, sf::RenderStates states) const
 
 void Fish::update(Hook & hook, bool direction)
 {
-    if (!_catch && _shape.getGlobalBounds().intersects(hook.getGlobalBounds()))
+    if (!_catch && _shape.getGlobalBounds().intersects(hook.getGlobalBounds()) && !_uncatchable)
     {
         _shape.rotate(90);
         _shape.setPosition(sf::Vector2f(hook.getGlobalBounds().left + (hook.getGlobalBounds().width + _shape.getGlobalBounds().width) / 2, hook.getGlobalBounds().top));
         _catch = true;
         hook.score(_value);
+        hook.addFish(this);
     } 
     else if (_catch)
     {
@@ -75,4 +76,10 @@ void Fish::update(Hook & hook, bool direction)
             _shape.move(_speed - sf::Vector2f(0, -9));
         }
     }
+}
+
+void Fish::free()
+{
+    _uncatchable = true;
+    _catch = false;
 }
