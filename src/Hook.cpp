@@ -68,13 +68,11 @@ void Hook::addFish(Fish * f)
 void Hook::removeRandFish()
 {
     if (_catched_fishes.size() > 0) {
-        std::cout << "Free : size = " << _catched_fishes.size() << std::endl;
         int rand = std::uniform_int_distribution<>(0, (int) _catched_fishes.size() - 1)(gen);
-        std::cout << "Rand = " << rand << std::endl;
         Fish * f = _catched_fishes[rand];
         _catched_fishes.erase(_catched_fishes.begin() + rand);
         f->free();
-        std::cout << "Freed" << std::endl;
+        score(-(f->getValue()));
     }
 }
 

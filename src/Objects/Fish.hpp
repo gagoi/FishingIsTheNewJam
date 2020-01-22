@@ -25,4 +25,5 @@ public:
     void draw(sf::RenderTarget &, sf::RenderStates) const;
     virtual int getType() {return 0;}
     void free();
+    float getValue() const {return _value;}
 };

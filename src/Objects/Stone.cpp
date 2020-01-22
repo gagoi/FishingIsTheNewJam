@@ -20,15 +20,11 @@ void Stone::update(Hook & hook, bool direction)
             _shape.move(sf::Vector2f(0, 5));
             if (!_catch && _shape.getGlobalBounds().intersects(hook.getGlobalBounds()))
             {
-                 // TODO : Change aléatoire
                 std::uniform_int_distribution<> dist(2, 8);
                 int nb_to_lost = dist(gen);
 
                 for (int i = 0; i < nb_to_lost; ++i)
-                {
-                    std::cout << i << std::endl;
                     hook.removeRandFish();
-                }
             }
         }
     }
