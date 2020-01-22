@@ -6,6 +6,7 @@
 
 #include "../Hook.hpp"
 
+class Hook;
 class Fish : public sf::Drawable
 {
 protected:
@@ -16,10 +17,12 @@ protected:
     sf::Texture _text_reverse;
     sf::Texture _text_normal;
     sf::Vector2f _speed;
+    bool _uncatchable;
     Fish(){};
 public:
     Fish(sf::Vector2f, double, sf::Vector2f, int);
     virtual void update(Hook &, bool);
     void draw(sf::RenderTarget &, sf::RenderStates) const;
     virtual int getType() {return 0;}
+    void free();
 };

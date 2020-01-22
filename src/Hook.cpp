@@ -1,5 +1,8 @@
 #include "Hook.hpp"
 
+std::mt19937 Hook::gen(2549);
+std::uniform_int_distribution<> Hook::dist;
+
 Hook::Hook() : _score(0), _shape(sf::RectangleShape(sf::Vector2f(100, 100))), _chain(sf::RectangleShape(sf::Vector2f(100, 400))), _accelerationAngle(0), _hit(false)
 {
     _text.loadFromFile("bin/textures/hook.png", sf::IntRect(0, 0, 256, 256));
@@ -55,6 +58,24 @@ void Hook::score(int val)
 {
     _score += val;
     if (_score < 0) _score = 0;
+}
+
+void Hook::addFish(Fish * f)
+{
+    _catched_fishes.push_back(f);
+}
+
+void Hook::removeRandFish()
+{
+    if (_catched_fishes.size() > 0) {
+        std::cout << "Free : size = " << _catched_fishes.size() << std::endl;
+        int rand = std::uniform_int_distribution<>(0, (int) _catched_fishes.size() - 1)(gen);
+        std::cout << "Rand = " << rand << std::endl;
+        Fish * f = _catched_fishes[rand];
+        _catched_fishes.erase(_catched_fishes.begin() + rand);
+        f->free();
+        std::cout << "Freed" << std::endl;
+    }
 }
 
  sf::FloatRect Hook::getGlobalBounds() const {
