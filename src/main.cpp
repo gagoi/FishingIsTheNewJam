@@ -1,6 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include "Hook.hpp"
-#include "Fish.hpp"
+#include "Objects/Fish.hpp"
 #include "Fishes.hpp"
 #include "Button.hpp"
 

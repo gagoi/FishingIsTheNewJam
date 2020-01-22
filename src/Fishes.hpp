@@ -5,9 +5,9 @@
 #include <random>
 #include <algorithm>
 
-#include "Fish.hpp"
-#include "Treasure.hpp"
-#include "Stone.hpp"
+#include "Objects/Fish.hpp"
+#include "Objects/Treasure.hpp"
+#include "Objects/Stone.hpp"
 #include "Hook.hpp"
 
 class Fishes : public std::list<Fish*>, public sf::Drawable

@@ -4,7 +4,7 @@
 #include <string>
 #include <iostream>
 
-#include "Hook.hpp"
+#include "../Hook.hpp"
 
 class Fish : public sf::Drawable
 {
