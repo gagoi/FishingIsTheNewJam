@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Fish.hpp"
+#include <random>
 
 class Stone : public Fish
 {

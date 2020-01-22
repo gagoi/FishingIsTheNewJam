@@ -18,6 +18,20 @@ void Stone::update(Hook & hook, bool direction)
         else
         {
             _shape.move(sf::Vector2f(0, 5));
+            if (!_catch && _shape.getGlobalBounds().intersects(hook.getGlobalBounds()))
+            {
+                std::mt19937 gen(30); // TODO : Change aléatoire
+                std::uniform_int_distribution dist(2, 8);
+                int nb_to_lost = dist(gen);
+
+                for (int i = 0; i < nb_to_lost; ++i)
+                {
+                    // Get fish in hook
+                    // Remove fish in hook
+                    // Change score with fish value
+                    hook.score(-100);
+                }
+            }
         }
     }
 }
