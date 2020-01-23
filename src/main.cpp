@@ -3,6 +3,7 @@
 #include "Objects/Fish.hpp"
 #include "Fishes.hpp"
 #include "Button.hpp"
+#include "Logger.hpp"
 
 int play_game(int lvl, sf::RenderWindow &, sf::Font &);
 int menu(sf::RenderWindow &, sf::Font &);
@@ -10,13 +11,18 @@ void show_score(int, sf::RenderWindow &, sf::Font &);
 
 int main()
 {
+    Logger logger;
     sf::RenderWindow window(sf::VideoMode(800, 1200), "SFML works!");
     sf::Font font;
     window.setFramerateLimit(120);
     font.loadFromFile("./bin/fonts/Adonay.ttf");
     while (true)
     {
-        show_score(play_game(menu(window, font), window, font), window, font);
+        int lvl = menu(window, font);
+        int score = play_game(lvl, window, font);
+        logger[std::to_string(lvl)] = std::max(score, logger[std::to_string(lvl)]);
+        logger.save();
+        show_score(score, window, font);
     }
     return 0;
 }
