@@ -11,6 +11,7 @@ Treasure::Treasure(int depth)
     _shape.setTexture(&_text_normal);
     _speed = sf::Vector2f(0, -2);
     _catch = false;
+    _uncatchable = false;
     _shape.move(sf::Vector2f(350, depth - 200));
     _value = 1000;
 }
