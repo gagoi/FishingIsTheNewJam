@@ -12,9 +12,14 @@ int& Logger::operator[](std::string const & key)
     return _datas[key];
 }
 
+int Logger::operator[](std::string const & key) const
+{
+    return _datas.count(key) > 0 ? _datas.find(key)->second : 0;
+}
+
 void Logger::save()
 {
-    std::ofstream scoreFile(_filename);
+    std::ofstream scoreFile(_filename, std::ios::trunc);
     for (auto&& t : _datas)
         scoreFile << t.first << ':' << t.second << std::endl;
     scoreFile.flush();
@@ -25,12 +30,19 @@ void Logger::readData()
 {
     std::ifstream scoreFile(_filename);
     std::string line;
-
-    for (int i = 0; i < 16; ++i)
+    std::cout << "Read : " << scoreFile.eof() << std::endl;
+    while (!scoreFile.eof())
     {
         std::getline(scoreFile, line, ':');
         int score;
         scoreFile >> score;
-        _datas[line] = score;
+        if (line != "") 
+        {
+            _datas[line] = score;
+            std::cout << line << " -> " << score << std::endl;
+        }
+        getline(scoreFile, line);
     }
+
+    scoreFile.close();
 }

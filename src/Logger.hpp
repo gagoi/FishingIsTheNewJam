@@ -15,6 +15,7 @@ public:
     Logger();
     void save();
     int& operator[](std::string const &);
+    int operator[](std::string const &) const;
     friend void operator<<(Logger const &, std::string);
 };
 

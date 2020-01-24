@@ -6,7 +6,7 @@
 #include "Logger.hpp"
 
 int play_game(int lvl, sf::RenderWindow &, sf::Font &);
-int menu(sf::RenderWindow &, sf::Font &);
+int menu(sf::RenderWindow &, sf::Font &, Logger const &);
 void show_score(int, sf::RenderWindow &, sf::Font &);
 
 int main()
@@ -18,7 +18,7 @@ int main()
     font.loadFromFile("./bin/fonts/Adonay.ttf");
     while (true)
     {
-        int lvl = menu(window, font);
+        int lvl = menu(window, font, logger);
         int score = play_game(lvl, window, font);
         logger[std::to_string(lvl)] = std::max(score, logger[std::to_string(lvl)]);
         logger.save();
@@ -27,7 +27,7 @@ int main()
     return 0;
 }
 
-int menu(sf::RenderWindow & window, sf::Font & font)
+int menu(sf::RenderWindow & window, sf::Font & font, Logger const & logger)
 {
     std::vector<Button*> buttons;
     sf::Texture bg;
@@ -36,9 +36,15 @@ int menu(sf::RenderWindow & window, sf::Font & font)
     background.setTexture(&bg);
 
     for (int i = 0; i < 4; ++i)
+    {
         for (int j = 0; j < 4; ++j)
-            buttons.push_back(new Button(i * 110 + 400 - 220, j * 110 + 400 - 220, 100, 100, std::to_string(i + j * 4 + 1), font));
-
+        {
+            int x = i * 160 + 400 - 320;
+            int y = j * 160 + 400 - 220;
+            std::string lvl_name = std::to_string(i + j * 4 + 1);
+            buttons.push_back(new Button(x, y, 150, 150, logger[lvl_name], lvl_name, font));
+        }
+    }
     while (window.isOpen())
     {
         sf::Event event;
