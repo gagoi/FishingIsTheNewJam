@@ -72,7 +72,7 @@ void Fishes::update()
 
 void Fishes::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
-    target.draw(_bg_rect);
+  //  target.draw(_bg_rect);
     target.draw(_hook);
     std::for_each(begin(), end(), [this, &target](Fish * pfish){target.draw(*pfish);});
     target.draw(_background);

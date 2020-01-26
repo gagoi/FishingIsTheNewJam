@@ -100,7 +100,7 @@ int play_game(int lvl, sf::RenderWindow & window, sf::Font & font)
         f.update();
 
         if (depth < 0)
-            return f.getHook().getScore();
+            return f.getHook().getScore() > 0 ? f.getHook().getScore() : 0;
 
 
         window.clear();

@@ -57,7 +57,6 @@ void Hook::move(sf::Vector2f const & m)
 void Hook::score(int val)
 {
     _score += val;
-    if (_score < 0) _score = 0;
 }
 
 void Hook::addFish(Fish * f)
